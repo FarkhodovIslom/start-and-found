@@ -1,24 +1,72 @@
 @import "tailwindcss";
 
+/*
+ * Semantic palette.
+ *
+ * Every color a screen may use is declared once here as a light/dark pair, so
+ * the scheme is a single `color-scheme` switch instead of duplicated utility
+ * classes. Lime is the brand: accents only, never body text and never large
+ * fills, which is why `accent` (readable ink) is separate from `accent-solid`
+ * (the button fill that carries `accent-ink`).
+ */
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* canvas + surfaces */
+  --color-canvas: light-dark(#f6f6f7, #0d0d0d);
+  --color-surface: light-dark(#ffffff, #141414);
+  --color-surface-2: light-dark(#f0f0f1, #1a1a1a);
+
+  /* 1px borders */
+  --color-line: light-dark(#e4e4e7, #2a2a2a);
+  --color-line-strong: light-dark(#d4d4d8, #3d3d3d);
+
+  /* ink: primary text, body, secondary, faint */
+  --color-ink: light-dark(#0d0d0d, #ffffff);
+  --color-ink-2: light-dark(#3f3f46, #a8a8a8);
+  --color-ink-3: light-dark(#52525b, #909090);
+  --color-ink-4: light-dark(#6b6b73, #808080);
+
+  /* brand */
+  --color-accent: light-dark(#4d7c0f, #9fef00);
+  --color-accent-2: light-dark(#b6ff2e, #b6ff2e);
+  --color-accent-solid: light-dark(#9fef00, #9fef00);
+  --color-accent-ink: light-dark(#0d0d0d, #0d0d0d);
+
+  /* status */
+  --color-danger: light-dark(#c81e1e, #ff6b6b);
+  --color-warning: light-dark(#b45309, #f0b429);
+  --color-success: light-dark(#047857, #4ade80);
+  --color-paused: light-dark(#c2410c, #fb923c);
 }
 
+/*
+ * Light is the base scheme, so a browser that asks for dark only needs the
+ * media override below. An explicit choice always beats the OS preference; the
+ * attribute is rendered by the root layout from the theme cookie.
+ */
 :root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
   color-scheme: dark;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"],
+  :root:not([data-theme]) {
+    color-scheme: dark;
+  }
+}
+
 body {
-  background-color: #09090b;
-  color: #e4e4e7;
+  background-color: var(--color-canvas);
+  color: var(--color-ink-2);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background-color: rgb(56 189 248 / 0.3);
+  background-color: light-dark(rgb(77 124 15 / 0.2), rgb(159 239 0 / 0.3));
 }
 
 /* Fenced code inside markdown already has a surface; keep the inner tag flat. */
