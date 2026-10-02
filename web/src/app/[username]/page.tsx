@@ -74,16 +74,16 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
 
   return (
     <div className="space-y-6">
-      <header className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+      <header className="rounded-xl border border-line bg-surface p-5">
         <div className="flex items-start gap-4">
           <Avatar name={displayName} src={profile.user.avatar_url} size="lg" />
           <div className="min-w-0 flex-1">
-            <h1 className="text-lg font-semibold text-zinc-50">{displayName}</h1>
-            <p className="text-sm text-zinc-500">{profile.user.handle}</p>
+            <h1 className="text-lg font-semibold text-ink">{displayName}</h1>
+            <p className="text-sm text-ink-4">{profile.user.handle}</p>
             {profile.user.bio.length > 0 ? (
-              <p className="mt-3 text-sm text-zinc-400">{profile.user.bio}</p>
+              <p className="mt-3 text-sm text-ink-3">{profile.user.bio}</p>
             ) : null}
-            <p className="mt-3 text-xs text-zinc-600">
+            <p className="mt-3 text-xs text-ink-4">
               Joined {relativeTime(profile.user.created_at)}
             </p>
           </div>
@@ -91,7 +91,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
       </header>
 
       <section className="space-y-3">
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Projects</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-4">Projects</h2>
         {profile.projects.length === 0 ? (
           <EmptyState
             title="No projects yet"
@@ -108,14 +108,14 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
 
       <section className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Activity</h2>
-          <nav className="flex items-center gap-1 rounded-lg border border-white/10 p-0.5">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-4">Activity</h2>
+          <nav className="flex items-center gap-1 rounded-lg border border-line p-0.5">
             {SCOPE_TABS.map((tab) => (
               <Link
                 key={tab.value}
                 href={activityHref(username, tab.value, undefined)}
                 className={`rounded-md px-2.5 py-1 text-xs transition-colors ${
-                  tab.value === scope ? "bg-white/10 text-zinc-100" : "text-zinc-400 hover:text-zinc-200"
+                  tab.value === scope ? "bg-surface-2 text-ink" : "text-ink-3 hover:text-ink-2"
                 }`}
               >
                 {tab.label}
@@ -152,7 +152,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
               {cursor !== undefined ? (
                 <Link
                   href={activityHref(username, scope, undefined)}
-                  className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-white/25"
+                  className="rounded-lg border border-line px-3 py-1.5 text-sm text-ink-2 transition-colors hover:border-line-strong"
                 >
                   Back to the top
                 </Link>
@@ -161,7 +161,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
                 <Link
                   href={activityHref(username, scope, activity.next_cursor)}
                   prefetch={false}
-                  className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-white/25"
+                  className="rounded-lg border border-line px-3 py-1.5 text-sm text-ink-2 transition-colors hover:border-line-strong"
                 >
                   Load more
                 </Link>

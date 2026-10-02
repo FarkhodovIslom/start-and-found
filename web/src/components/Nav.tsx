@@ -5,7 +5,7 @@ import type { Account } from "@/lib/api/types";
 import LogoutButton from "./LogoutButton";
 import SessionKeeper from "./SessionKeeper";
 
-const NAV_LINK = "text-sm text-zinc-400 transition-colors hover:text-zinc-100";
+const NAV_LINK = "text-sm text-ink-3 transition-colors hover:text-ink";
 
 /** Application header: brand, primary navigation and the session controls. */
 export default async function Nav() {
@@ -21,10 +21,10 @@ export default async function Nav() {
   }
 
   return (
-    <header className="sticky top-0 z-10 border-b border-white/10 bg-zinc-950/85 backdrop-blur">
+    <header className="sticky top-0 z-10 border-b border-line bg-canvas/85 backdrop-blur">
       <nav className="mx-auto flex h-14 w-full max-w-2xl items-center gap-4 px-4">
-        <Link href="/" className="text-sm font-semibold tracking-tight text-zinc-50">
-          Start<span className="text-sky-400">&amp;</span>Found
+        <Link href="/" className="text-sm font-semibold tracking-tight text-ink">
+          Start<span className="text-accent">&amp;</span>Found
         </Link>
 
         <div className="ml-auto flex items-center gap-4">
@@ -37,7 +37,7 @@ export default async function Nav() {
 
           {account !== null ? (
             <span className="flex items-center gap-3">
-              <Link href="/settings" className="text-xs text-zinc-300 hover:text-sky-300">
+              <Link href="/settings" className="text-xs text-ink-2 hover:text-accent">
                 {account.handle}
               </Link>
               <LogoutButton />
@@ -49,7 +49,7 @@ export default async function Nav() {
               </Link>
               <Link
                 href="/signup"
-                className="rounded-lg bg-sky-500 px-2.5 py-1 text-xs font-semibold text-white transition-colors hover:bg-sky-400"
+                className="rounded-lg bg-accent-solid px-2.5 py-1 text-xs font-semibold text-accent-ink transition-colors hover:bg-accent-2"
               >
                 Sign up
               </Link>

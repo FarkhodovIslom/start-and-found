@@ -12,7 +12,7 @@ export interface SettingsFormProps {
 }
 
 const FIELD_CLASSES =
-  "w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-sky-400/60 focus:outline-none disabled:opacity-60";
+  "w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60";
 
 /** Profile editor for display name, avatar URL and bio. */
 export default function SettingsForm({ account }: SettingsFormProps) {
@@ -52,7 +52,7 @@ export default function SettingsForm({ account }: SettingsFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="display_name" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+        <label htmlFor="display_name" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
           Display name
         </label>
         <input
@@ -67,7 +67,7 @@ export default function SettingsForm({ account }: SettingsFormProps) {
       </div>
 
       <div>
-        <label htmlFor="avatar_url" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+        <label htmlFor="avatar_url" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
           Avatar URL
         </label>
         <input
@@ -82,7 +82,7 @@ export default function SettingsForm({ account }: SettingsFormProps) {
       </div>
 
       <div>
-        <label htmlFor="bio" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+        <label htmlFor="bio" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
           Bio
         </label>
         <textarea
@@ -101,13 +101,13 @@ export default function SettingsForm({ account }: SettingsFormProps) {
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
+          className="rounded-lg bg-accent-solid px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2 disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-3"
         >
           {pending ? "Saving…" : "Save profile"}
         </button>
-        {saved ? <span className="text-sm text-emerald-400">Profile saved.</span> : null}
+        {saved ? <span className="text-sm text-success">Profile saved.</span> : null}
         {error !== null ? (
-          <span role="alert" className="text-sm text-rose-400">
+          <span role="alert" className="text-sm text-danger">
             {error}
           </span>
         ) : null}

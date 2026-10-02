@@ -45,14 +45,14 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-baseline justify-between gap-3">
-        <h1 className="text-lg font-semibold text-zinc-50">Thread</h1>
-        <p className="text-xs text-zinc-500">{postCountLabel(thread.post_count)}</p>
+        <h1 className="text-lg font-semibold text-ink">Thread</h1>
+        <p className="text-xs text-ink-4">{postCountLabel(thread.post_count)}</p>
       </div>
 
       <ThreadTree root={thread.root} />
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">Reply</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-4">Reply</h2>
         {isSignedIn(session) ? (
           <PostComposer replyTo={thread.root.post.id} />
         ) : (
@@ -62,7 +62,7 @@ export default async function PostPage({ params }: PostPageProps) {
             action={
               <Link
                 href="/login"
-                className="rounded-lg bg-sky-500 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400"
+                className="rounded-lg bg-accent-solid px-3 py-1.5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2"
               >
                 Log in
               </Link>

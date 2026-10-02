@@ -29,8 +29,8 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-baseline justify-between gap-3">
-        <h1 className="text-lg font-semibold text-zinc-50">Feed</h1>
-        <Link href="/compose" className="text-sm text-sky-400 transition-colors hover:text-sky-300">
+        <h1 className="text-lg font-semibold text-ink">Feed</h1>
+        <Link href="/compose" className="text-sm text-accent hover:underline">
           New post
         </Link>
       </div>
@@ -48,7 +48,7 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
           action={
             <Link
               href="/compose"
-              className="rounded-lg bg-sky-500 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400"
+              className="rounded-lg bg-accent-solid px-3 py-1.5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2"
             >
               Write a post
             </Link>
@@ -68,7 +68,7 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
             {cursor !== undefined ? (
               <Link
                 href="/"
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-white/25"
+                className="rounded-lg border border-line px-3 py-1.5 text-sm text-ink-2 transition-colors hover:border-line-strong"
               >
                 Back to the top
               </Link>
@@ -77,7 +77,7 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
               <Link
                 href={{ pathname: "/", query: { cursor: page.next_cursor } }}
                 prefetch={false}
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-white/25"
+                className="rounded-lg border border-line px-3 py-1.5 text-sm text-ink-2 transition-colors hover:border-line-strong"
               >
                 Load more
               </Link>

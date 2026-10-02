@@ -8,11 +8,11 @@ export interface ProjectCardProps {
 }
 
 const STATUS_CLASSES: Record<ProjectStatus, string> = {
-  idea: "border-zinc-400/30 bg-zinc-400/10 text-zinc-300",
-  building: "border-amber-400/30 bg-amber-400/10 text-amber-300",
-  launched: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
-  paused: "border-orange-400/30 bg-orange-400/10 text-orange-300",
-  archived: "border-white/15 bg-white/5 text-zinc-400",
+  idea: "border-line-strong bg-surface-2 text-ink-2",
+  building: "border-warning/30 bg-warning/10 text-warning",
+  launched: "border-success/30 bg-success/10 text-success",
+  paused: "border-paused/30 bg-paused/10 text-paused",
+  archived: "border-line bg-surface-2 text-ink-3",
 };
 
 /** Coloured pill rendering the lifecycle status of a project. */
@@ -38,27 +38,27 @@ export default function ProjectCard({ project, className = "" }: ProjectCardProp
   return (
     <Link
       href={`/${project.owner_username}/${project.slug}`}
-      className={`group flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-colors hover:border-sky-400/40 ${className}`.trim()}
+      className={`group flex flex-col gap-3 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/40 ${className}`.trim()}
     >
       <div className="flex items-start gap-3">
         <Avatar name={project.name} src={project.logo_url} size="md" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="truncate text-sm font-semibold text-zinc-100 group-hover:text-sky-300">
+            <h3 className="truncate text-sm font-semibold text-ink group-hover:text-accent">
               {project.name}
             </h3>
             <ProjectStatusPill status={project.status} />
           </div>
-          <p className="truncate text-xs text-zinc-500">{project.handle}</p>
+          <p className="truncate text-xs text-ink-4">{project.handle}</p>
         </div>
       </div>
 
       {project.description.length > 0 ? (
-        <p className="line-clamp-3 text-sm text-zinc-400">{project.description}</p>
+        <p className="line-clamp-3 text-sm text-ink-3">{project.description}</p>
       ) : null}
 
       {project.category.length > 0 ? (
-        <p className="text-xs text-zinc-600">{project.category}</p>
+        <p className="text-xs text-ink-4">{project.category}</p>
       ) : null}
     </Link>
   );

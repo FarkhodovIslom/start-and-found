@@ -22,7 +22,7 @@ function MediaGrid({ media }: { media: Media[] }) {
       {media.map((item) => (
         <div
           key={item.id}
-          className="max-h-96 overflow-hidden rounded-lg border border-white/10 bg-black/40"
+          className="max-h-96 overflow-hidden rounded-lg border border-line bg-surface-2"
         >
           {item.kind === "video" ? (
             <video
@@ -56,7 +56,7 @@ export default function PostCard({
 
   return (
     <article
-      className={`rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-colors hover:border-white/20 ${className}`.trim()}
+      className={`rounded-xl border border-line bg-surface p-4 transition-colors hover:border-line-strong ${className}`.trim()}
     >
       <div className="flex items-start gap-3">
         <Link href={`/${post.author.username}`} className="shrink-0">
@@ -67,16 +67,16 @@ export default function PostCard({
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             <Link
               href={`/${post.author.username}`}
-              className="max-w-full truncate text-sm font-semibold text-zinc-100 hover:underline"
+              className="max-w-full truncate text-sm font-semibold text-ink hover:underline"
             >
               {authorName}
             </Link>
             <PublisherBadge
               handle={post.publisher_handle}
               kind={post.publisher_kind}
-              className="text-xs text-zinc-400"
+              className="text-xs text-ink-3"
             />
-            <time dateTime={post.created_at} className="text-xs text-zinc-500">
+            <time dateTime={post.created_at} className="text-xs text-ink-4">
               {relativeTime(post.created_at)}
             </time>
           </div>
@@ -91,7 +91,7 @@ export default function PostCard({
             <div className="mt-3 text-xs">
               <Link
                 href={`/p/${post.id}`}
-                className="text-zinc-400 transition-colors hover:text-sky-300"
+                className="text-ink-3 transition-colors hover:text-accent"
               >
                 {replyLabel(post.reply_count)}
               </Link>

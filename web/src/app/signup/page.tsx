@@ -6,7 +6,7 @@ import { useState } from "react";
 import { submitAuthCredentials, type AuthFailure } from "@/lib/api/browser";
 
 const FIELD_CLASSES =
-  "w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-sky-400/60 focus:outline-none disabled:opacity-60";
+  "w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60";
 
 const FIELDS = ["username", "email", "display_name", "password"] as const;
 
@@ -54,15 +54,15 @@ export default function SignupPage() {
   return (
     <div className="mx-auto max-w-sm space-y-6 py-6">
       <div className="space-y-1">
-        <h1 className="text-xl font-semibold text-zinc-50">Create an account</h1>
-        <p className="text-sm text-zinc-400">
+        <h1 className="text-xl font-semibold text-ink">Create an account</h1>
+        <p className="text-sm text-ink-3">
           Publish as yourself now, add projects later.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="username" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+          <label htmlFor="username" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
             Username
           </label>
           <input
@@ -76,12 +76,12 @@ export default function SignupPage() {
             className={FIELD_CLASSES}
           />
           {fieldError("username") !== null ? (
-            <p className="mt-1 text-xs text-rose-400">{fieldError("username")}</p>
+            <p className="mt-1 text-xs text-danger">{fieldError("username")}</p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+          <label htmlFor="email" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
             Email
           </label>
           <input
@@ -96,12 +96,12 @@ export default function SignupPage() {
             className={FIELD_CLASSES}
           />
           {fieldError("email") !== null ? (
-            <p className="mt-1 text-xs text-rose-400">{fieldError("email")}</p>
+            <p className="mt-1 text-xs text-danger">{fieldError("email")}</p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="display_name" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+          <label htmlFor="display_name" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
             Display name
           </label>
           <input
@@ -114,12 +114,12 @@ export default function SignupPage() {
             className={FIELD_CLASSES}
           />
           {fieldError("display_name") !== null ? (
-            <p className="mt-1 text-xs text-rose-400">{fieldError("display_name")}</p>
+            <p className="mt-1 text-xs text-danger">{fieldError("display_name")}</p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="password" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+          <label htmlFor="password" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
             Password
           </label>
           <input
@@ -134,12 +134,12 @@ export default function SignupPage() {
             className={FIELD_CLASSES}
           />
           {fieldError("password") !== null ? (
-            <p className="mt-1 text-xs text-rose-400">{fieldError("password")}</p>
+            <p className="mt-1 text-xs text-danger">{fieldError("password")}</p>
           ) : null}
         </div>
 
         {generalError !== null ? (
-          <p role="alert" className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
+          <p role="alert" className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {generalError}
           </p>
         ) : null}
@@ -147,15 +147,15 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
+          className="w-full rounded-lg bg-accent-solid px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2 disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-3"
         >
           {pending ? "Creating account…" : "Create account"}
         </button>
       </form>
 
-      <p className="text-sm text-zinc-400">
+      <p className="text-sm text-ink-3">
         Already have an account?{" "}
-        <Link href="/login" className="text-sky-400 hover:text-sky-300">
+        <Link href="/login" className="text-accent hover:underline">
           Log in
         </Link>
       </p>

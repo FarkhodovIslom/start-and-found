@@ -11,7 +11,7 @@ function ThreadBranch({ node, nested }: { node: ThreadNode; nested: boolean }) {
     <div
       className={
         nested
-          ? "relative mt-3 pl-4 before:absolute before:top-0 before:left-0 before:h-full before:w-px before:bg-white/10 sm:pl-6"
+          ? "relative mt-3 pl-4 before:absolute before:top-0 before:left-0 before:h-full before:w-px before:bg-line sm:pl-6"
           : ""
       }
     >

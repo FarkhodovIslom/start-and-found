@@ -6,7 +6,7 @@ import { useState } from "react";
 import { submitAuthCredentials, type AuthFailure } from "@/lib/api/browser";
 
 const FIELD_CLASSES =
-  "w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-sky-400/60 focus:outline-none disabled:opacity-60";
+  "w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60";
 
 /** Client form that exchanges credentials for httpOnly session cookies. */
 export default function LoginPage() {
@@ -42,15 +42,15 @@ export default function LoginPage() {
   return (
     <div className="mx-auto max-w-sm space-y-6 py-6">
       <div className="space-y-1">
-        <h1 className="text-xl font-semibold text-zinc-50">Log in</h1>
-        <p className="text-sm text-zinc-400">
+        <h1 className="text-xl font-semibold text-ink">Log in</h1>
+        <p className="text-sm text-ink-3">
           Use your username or your email address.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="identifier" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+          <label htmlFor="identifier" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
             Username or email
           </label>
           <input
@@ -64,12 +64,12 @@ export default function LoginPage() {
             className={FIELD_CLASSES}
           />
           {fieldError("identifier") !== null ? (
-            <p className="mt-1 text-xs text-rose-400">{fieldError("identifier")}</p>
+            <p className="mt-1 text-xs text-danger">{fieldError("identifier")}</p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="password" className="mb-1 block text-xs uppercase tracking-wide text-zinc-500">
+          <label htmlFor="password" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
             Password
           </label>
           <input
@@ -84,12 +84,12 @@ export default function LoginPage() {
             className={FIELD_CLASSES}
           />
           {fieldError("password") !== null ? (
-            <p className="mt-1 text-xs text-rose-400">{fieldError("password")}</p>
+            <p className="mt-1 text-xs text-danger">{fieldError("password")}</p>
           ) : null}
         </div>
 
         {generalError !== null ? (
-          <p role="alert" className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
+          <p role="alert" className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-sm text-danger">
             {generalError}
           </p>
         ) : null}
@@ -97,15 +97,15 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
+          className="w-full rounded-lg bg-accent-solid px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2 disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-3"
         >
           {pending ? "Logging in…" : "Log in"}
         </button>
       </form>
 
-      <p className="text-sm text-zinc-400">
+      <p className="text-sm text-ink-3">
         No account yet?{" "}
-        <Link href="/signup" className="text-sky-400 hover:text-sky-300">
+        <Link href="/signup" className="text-accent hover:underline">
           Create one
         </Link>
       </p>

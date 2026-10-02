@@ -100,7 +100,7 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
+      className="rounded-xl border border-line bg-surface p-4"
     >
       <textarea
         value={body}
@@ -108,7 +108,7 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
         rows={isReply ? 3 : 5}
         disabled={pending}
         placeholder={placeholder ?? (isReply ? "Write a reply…" : "Share what you are building…")}
-        className="w-full resize-y rounded-lg border border-white/10 bg-black/30 p-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-sky-400/60 focus:outline-none disabled:opacity-60"
+        className="w-full resize-y rounded-lg border border-line bg-surface-2 p-3 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60"
       />
 
       {files.length > 0 ? (
@@ -116,7 +116,7 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
           {files.map((file) => (
             <li
               key={file.name}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-400"
+              className="rounded-full border border-line bg-surface-2 px-3 py-1 text-xs text-ink-3"
             >
               {file.name}
             </li>
@@ -125,13 +125,13 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
       ) : null}
 
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <label className="flex items-center gap-2 text-sm text-zinc-400">
+        <label className="flex items-center gap-2 text-sm text-ink-3">
           <span className="whitespace-nowrap text-xs uppercase tracking-wide">Post as</span>
           <select
             value={as}
             onChange={(event) => setAs(event.target.value)}
             disabled={pending}
-            className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5 text-sm text-zinc-200 focus:border-sky-400/60 focus:outline-none disabled:opacity-60"
+            className="rounded-lg border border-line bg-surface-2 px-2 py-1.5 text-sm text-ink-2 focus:border-accent focus:outline-none disabled:opacity-60"
           >
             <option value="">Myself</option>
             {publishers.map((publisher) => (
@@ -142,7 +142,7 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
           </select>
         </label>
 
-        <label className="cursor-pointer rounded-lg border border-white/10 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-white/25">
+        <label className="cursor-pointer rounded-lg border border-line px-3 py-1.5 text-sm text-ink-2 transition-colors hover:border-line-strong">
           Attach
           <input
             ref={fileInput}
@@ -158,14 +158,14 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
         <button
           type="submit"
           disabled={pending || body.trim().length === 0}
-          className="ml-auto rounded-lg bg-sky-500 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
+          className="ml-auto rounded-lg bg-accent-solid px-4 py-1.5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2 disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-3"
         >
           {pending ? "Publishing…" : isReply ? "Reply" : "Publish"}
         </button>
       </div>
 
       {error !== null ? (
-        <p role="alert" className="mt-3 text-sm text-rose-400">
+        <p role="alert" className="mt-3 text-sm text-danger">
           {error}
         </p>
       ) : null}

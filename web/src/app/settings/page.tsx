@@ -24,8 +24,8 @@ export default async function SettingsPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-lg font-semibold text-zinc-50">Settings</h1>
-        <p className="text-sm text-zinc-400">Update how your profile appears across the platform.</p>
+        <h1 className="text-lg font-semibold text-ink">Settings</h1>
+        <p className="text-sm text-ink-3">Update how your profile appears across the platform.</p>
       </div>
 
       {account === null ? (
@@ -38,7 +38,7 @@ export default async function SettingsPage() {
           action={
             <Link
               href="/login"
-              className="rounded-lg bg-sky-500 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400"
+              className="rounded-lg bg-accent-solid px-3 py-1.5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2"
             >
               Log in
             </Link>

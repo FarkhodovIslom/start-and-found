@@ -11,8 +11,8 @@ export default async function ComposePage() {
   return (
     <div className="space-y-4">
       <div className="space-y-1">
-        <h1 className="text-lg font-semibold text-zinc-50">New post</h1>
-        <p className="text-sm text-zinc-400">
+        <h1 className="text-lg font-semibold text-ink">New post</h1>
+        <p className="text-sm text-ink-3">
           Publish as yourself or as one of your projects. Markdown is supported.
         </p>
       </div>

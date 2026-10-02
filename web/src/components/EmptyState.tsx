@@ -18,14 +18,14 @@ export default function EmptyState({
 }: EmptyStateProps) {
   const surface =
     tone === "error"
-      ? "border-rose-500/30 bg-rose-500/5"
-      : "border-white/10 bg-white/[0.02]";
+      ? "border-danger/30 bg-danger/5"
+      : "border-line bg-surface";
 
   return (
     <div className={`rounded-xl border px-5 py-8 text-center ${surface}`}>
-      <p className="text-sm font-medium text-zinc-100">{title}</p>
+      <p className="text-sm font-medium text-ink">{title}</p>
       {description !== undefined ? (
-        <p className="mx-auto mt-2 max-w-md text-sm text-zinc-400">{description}</p>
+        <p className="mx-auto mt-2 max-w-md text-sm text-ink-3">{description}</p>
       ) : null}
       {action !== undefined ? <div className="mt-4 flex justify-center">{action}</div> : null}
     </div>

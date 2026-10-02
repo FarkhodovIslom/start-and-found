@@ -19,9 +19,9 @@ interface ProjectPageProps {
 const PROJECT_POST_LIMIT = 50;
 
 const MEMBER_ROLE_CLASSES: Record<string, string> = {
-  owner: "border-sky-400/30 bg-sky-400/10 text-sky-300",
-  admin: "border-amber-400/30 bg-amber-400/10 text-amber-300",
-  member: "border-white/15 bg-white/5 text-zinc-400",
+  owner: "border-accent/30 bg-accent/10 text-accent",
+  admin: "border-warning/30 bg-warning/10 text-warning",
+  member: "border-line bg-surface-2 text-ink-3",
 };
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -66,26 +66,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="space-y-6">
-      <header className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+      <header className="rounded-xl border border-line bg-surface p-5">
         <div className="flex items-start gap-4">
           <Avatar name={project.name} src={project.logo_url} size="lg" />
           <div className="min-w-0 flex-1 space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-lg font-semibold text-zinc-50">{project.name}</h1>
+              <h1 className="text-lg font-semibold text-ink">{project.name}</h1>
               <ProjectStatusPill status={project.status} />
             </div>
-            <p className="text-sm text-zinc-500">{project.handle}</p>
+            <p className="text-sm text-ink-4">{project.handle}</p>
             {project.description.length > 0 ? (
-              <p className="text-sm text-zinc-400">{project.description}</p>
+              <p className="text-sm text-ink-3">{project.description}</p>
             ) : null}
-            <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-zinc-500">
+            <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-ink-4">
               {project.category.length > 0 ? <span>{project.category}</span> : null}
               {project.website.length > 0 ? (
                 <a
                   href={project.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sky-400 transition-colors hover:text-sky-300"
+                  className="text-accent hover:underline"
                 >
                   {project.website}
                 </a>
@@ -97,7 +97,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </header>
 
       <section className="space-y-3">
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Team</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-4">Team</h2>
         {members.length === 0 ? (
           <EmptyState
             title="No team members listed"
@@ -111,17 +111,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               return (
                 <li
                   key={member.user_id}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-3"
+                  className="flex items-center gap-3 rounded-xl border border-line bg-surface p-3"
                 >
                   <Avatar name={name} src={member.avatar_url} size="sm" />
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/${member.username}`}
-                      className="block truncate text-sm font-medium text-zinc-100 hover:text-sky-300"
+                      className="block truncate text-sm font-medium text-ink hover:text-accent"
                     >
                       {name}
                     </Link>
-                    <p className="truncate text-xs text-zinc-500">{member.handle}</p>
+                    <p className="truncate text-xs text-ink-4">{member.handle}</p>
                   </div>
                   <span
                     className={`rounded-full border px-2 py-0.5 text-[11px] font-medium capitalize ${roleClasses}`}
@@ -136,7 +136,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-4">
           Published by this project
         </h2>
         {postsFailure !== null ? (

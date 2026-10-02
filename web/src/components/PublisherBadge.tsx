@@ -29,13 +29,13 @@ export default function PublisherBadge({
   return (
     <span className={`inline-flex min-w-0 items-center gap-1.5 ${className}`.trim()}>
       {label !== null ? (
-        <span className="rounded-full bg-sky-500/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sky-300">
+        <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
           {label}
         </span>
       ) : null}
       <Link
         href={publisherPath(handle)}
-        className="truncate transition-colors hover:text-sky-300"
+        className="truncate transition-colors hover:text-accent"
         title={isProject ? `Project ${handle}` : `User ${handle}`}
       >
         {handle}

@@ -29,7 +29,7 @@ export function initialsOf(name: string): string {
 }
 
 export default function Avatar({ name, src, size = "md", className = "" }: AvatarProps) {
-  const base = `inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-800 font-semibold text-zinc-300 ring-1 ring-white/10 ${SIZE_CLASSES[size]} ${className}`.trim();
+  const base = `inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-2 font-semibold text-ink-2 ring-1 ring-line ${SIZE_CLASSES[size]} ${className}`.trim();
 
   if (src !== undefined && src !== null && src.length > 0) {
     return <img src={src} alt={name} className={`${base} object-cover`} loading="lazy" />;
