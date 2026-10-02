@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useRef, useTransition } from "react";
 import { setTheme } from "@/app/actions";
 import type { Theme } from "@/lib/theme";
 import { MonitorIcon, MoonIcon, SunIcon } from "./icons";
@@ -22,8 +22,7 @@ const OPTIONS = [
 /** Order the compact button walks through. */
 const NEXT: Record<Theme, Theme> = { system: "light", light: "dark", dark: "system" };
 
-const BUTTON_CLASSES =
-  "rounded-md px-2.5 py-1 text-xs transition-colors disabled:opacity-60";
+const BUTTON_CLASSES = "rounded-md px-2.5 py-1 text-xs transition-colors disabled:opacity-60";
 
 function labelOf(theme: Theme): string {
   return OPTIONS.find((option) => option.value === theme)?.label ?? "System";
@@ -39,6 +38,7 @@ function labelOf(theme: Theme): string {
 export default function ThemeToggle({ theme, variant = "icon" }: ThemeToggleProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const options = useRef<(HTMLButtonElement | null)[]>([]);
 
   function choose(value: Theme) {
     if (pending || value === theme) return;
@@ -48,17 +48,44 @@ export default function ThemeToggle({ theme, variant = "icon" }: ThemeToggleProp
     });
   }
 
+  /** Arrow and Home/End keys, as a single-choice group is expected to answer them. */
+  function moveFocus(event: React.KeyboardEvent<HTMLButtonElement>, index: number) {
+    const step =
+      event.key === "ArrowRight" || event.key === "ArrowDown"
+        ? 1
+        : event.key === "ArrowLeft" || event.key === "ArrowUp"
+          ? -1
+          : 0;
+    if (step === 0 && event.key !== "Home" && event.key !== "End") return;
+
+    event.preventDefault();
+    const target =
+      event.key === "Home" ? 0 : event.key === "End" ? OPTIONS.length - 1 : index + step;
+    const wrapped = (target + OPTIONS.length) % OPTIONS.length;
+    options.current[wrapped]?.focus();
+    choose(OPTIONS[wrapped].value);
+  }
+
   if (variant === "segmented") {
     return (
-      <div role="radiogroup" aria-label="Colour scheme" className="flex items-center gap-1 rounded-lg border border-line p-0.5">
-        {OPTIONS.map(({ value, label, Icon }) => (
+      <div
+        role="radiogroup"
+        aria-label="Colour scheme"
+        className="flex items-center gap-1 rounded-lg border border-line p-0.5"
+      >
+        {OPTIONS.map(({ value, label, Icon }, index) => (
           <button
             key={value}
+            ref={(node) => {
+              options.current[index] = node;
+            }}
             type="button"
             role="radio"
             aria-checked={value === theme}
+            tabIndex={value === theme ? 0 : -1}
             disabled={pending}
             onClick={() => choose(value)}
+            onKeyDown={(event) => moveFocus(event, index)}
             className={`flex items-center gap-1.5 ${BUTTON_CLASSES} ${
               value === theme ? "bg-surface-2 text-ink" : "text-ink-3 hover:text-ink-2"
             }`}
