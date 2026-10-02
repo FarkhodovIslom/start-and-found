@@ -1,15 +1,18 @@
 import Link from "next/link";
 import { apiFetch } from "@/lib/api/server";
 import { isSignedIn, readSession } from "@/lib/session";
+import { readTheme } from "@/lib/theme";
 import type { Account } from "@/lib/api/types";
 import LogoutButton from "./LogoutButton";
 import SessionKeeper from "./SessionKeeper";
+import ThemeToggle from "./ThemeToggle";
 
 const NAV_LINK = "text-sm text-ink-3 transition-colors hover:text-ink";
 
 /** Application header: brand, primary navigation and the session controls. */
 export default async function Nav() {
   const session = await readSession();
+  const theme = await readTheme();
 
   let account: Account | null = null;
   if (session.accessToken !== null) {
@@ -34,6 +37,8 @@ export default async function Nav() {
           <Link href="/compose" className={NAV_LINK}>
             Compose
           </Link>
+
+          <ThemeToggle theme={theme} />
 
           {account !== null ? (
             <span className="flex items-center gap-3">
