@@ -8,6 +8,7 @@
  */
 
 import { cookies } from "next/headers";
+import { cache } from "react";
 
 /** Cookie holding the selected colour scheme. */
 export const THEME_COOKIE = "saf_theme";
@@ -25,8 +26,13 @@ export function isTheme(value: unknown): value is Theme {
   return typeof value === "string" && (THEMES as readonly string[]).includes(value);
 }
 
-/** Reads the theme cookie of the current request, falling back to the default. */
-export async function readTheme(): Promise<Theme> {
+/**
+ * Reads the theme cookie of the current request, falling back to the default.
+ *
+ * Cached for the duration of the render, because the layout, the header and
+ * the settings page all ask for the scheme on the same page.
+ */
+export const readTheme = cache(async (): Promise<Theme> => {
   const stored = (await cookies()).get(THEME_COOKIE)?.value;
   return isTheme(stored) ? stored : DEFAULT_THEME;
-}
+});
