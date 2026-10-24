@@ -4,16 +4,21 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { mediaApi, postsApi, publishersApi } from "@/lib/api/browser";
 import { ApiError } from "@/lib/api/client";
-import type { Publisher } from "@/lib/api/types";
+import type { Account, Publisher } from "@/lib/api/types";
+import Avatar from "./Avatar";
 
 export interface PostComposerProps {
   /** When set, the composer answers this post instead of starting a thread. */
   replyTo?: string;
   placeholder?: string;
+  variant?: "default" | "modal";
+  account?: Account;
 }
 
 /** Attachments accepted by one submission. */
 const MAX_ATTACHMENTS = 4;
+/** Maximum size for each image attachment, matching the API's MiB limit. */
+const MAX_IMAGE_BYTES = 25 << 20;
 
 /**
  * Composer for new posts and replies.
@@ -22,7 +27,12 @@ const MAX_ATTACHMENTS = 4;
  * uploaded straight to object storage with a presigned URL before the post is
  * created. On success the surrounding server components are re-rendered.
  */
-export default function PostComposer({ replyTo, placeholder }: PostComposerProps) {
+export default function PostComposer({
+  replyTo,
+  placeholder,
+  variant = "default",
+  account,
+}: PostComposerProps) {
   const router = useRouter();
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -52,7 +62,15 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
 
   function handleFileSelection(event: React.ChangeEvent<HTMLInputElement>) {
     const selected = Array.from(event.target.files ?? []).slice(0, MAX_ATTACHMENTS);
-    setFiles(selected);
+    const oversized = selected.filter(
+      (file) => file.type.startsWith("image/") && file.size > MAX_IMAGE_BYTES,
+    );
+    setFiles(selected.filter((file) => !oversized.includes(file)));
+    setError(
+      oversized.length > 0
+        ? `${oversized[0].name} exceeds the 25 MB per-image limit.`
+        : null,
+    );
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -100,16 +118,25 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-line bg-surface p-4"
+      className={variant === "modal" ? "space-y-3" : "rounded-xl border border-line bg-surface p-4"}
     >
-      <textarea
-        value={body}
-        onChange={(event) => setBody(event.target.value)}
-        rows={isReply ? 3 : 5}
-        disabled={pending}
-        placeholder={placeholder ?? (isReply ? "Write a reply…" : "Share what you are building…")}
-        className="w-full resize-y rounded-lg border border-line bg-surface-2 p-3 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60"
-      />
+      <div className={variant === "modal" ? "flex items-start gap-3" : ""}>
+        {variant === "modal" && account ? (
+          <Avatar
+            name={account.display_name || account.username}
+            src={account.avatar_url}
+            size="sm"
+          />
+        ) : null}
+        <textarea
+          value={body}
+          onChange={(event) => setBody(event.target.value)}
+          rows={variant === "modal" ? 6 : isReply ? 3 : 5}
+          disabled={pending}
+          placeholder={placeholder ?? (isReply ? "Write a reply…" : variant === "modal" ? "What’s happening?" : "Share what you are building…")}
+          className={`w-full resize-y rounded-lg border border-line bg-surface-2 p-3 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60 ${variant === "modal" ? "min-h-40 border-0 bg-transparent px-0 py-1 focus:border-transparent" : ""}`}
+        />
+      </div>
 
       {files.length > 0 ? (
         <ul className="mt-2 flex flex-wrap gap-2">
@@ -163,6 +190,8 @@ export default function PostComposer({ replyTo, placeholder }: PostComposerProps
           {pending ? "Publishing…" : isReply ? "Reply" : "Publish"}
         </button>
       </div>
+
+      <p className="mt-2 text-xs text-ink-4">Images can be up to 25 MB each.</p>
 
       {error !== null ? (
         <p role="alert" className="mt-3 text-sm text-danger">

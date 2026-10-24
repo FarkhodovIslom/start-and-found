@@ -5,6 +5,7 @@ import { useState } from "react";
 import { meApi } from "@/lib/api/browser";
 import { ApiError } from "@/lib/api/client";
 import type { Account } from "@/lib/api/types";
+import AvatarUpload from "./AvatarUpload";
 
 export interface SettingsFormProps {
   /** Account rendered by the server before the form was mounted. */
@@ -14,7 +15,7 @@ export interface SettingsFormProps {
 const FIELD_CLASSES =
   "w-full rounded-lg border border-line bg-surface-2 px-3 py-2 text-sm text-ink placeholder:text-ink-4 focus:border-accent focus:outline-none disabled:opacity-60";
 
-/** Profile editor for display name, avatar URL and bio. */
+/** Profile editor for display name, avatar and bio. */
 export default function SettingsForm({ account }: SettingsFormProps) {
   const router = useRouter();
 
@@ -67,17 +68,12 @@ export default function SettingsForm({ account }: SettingsFormProps) {
       </div>
 
       <div>
-        <label htmlFor="avatar_url" className="mb-1 block text-xs uppercase tracking-wide text-ink-4">
-          Avatar URL
-        </label>
-        <input
-          id="avatar_url"
-          name="avatar_url"
+        <span className="mb-1 block text-xs uppercase tracking-wide text-ink-4">Avatar</span>
+        <AvatarUpload
+          name={displayName.trim().length > 0 ? displayName : account.username}
           value={avatarURL}
-          onChange={(event) => setAvatarURL(event.target.value)}
-          placeholder="https://…"
           disabled={pending}
-          className={FIELD_CLASSES}
+          onChange={setAvatarURL}
         />
       </div>
 

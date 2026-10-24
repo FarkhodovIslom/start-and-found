@@ -24,22 +24,27 @@ export default function PublisherBadge({
   className = "",
 }: PublisherBadgeProps) {
   const isProject = kind === "project";
-  const label = isProject ? "Project" : null;
+  const projectName = isProject ? handle.split("/").filter(Boolean).at(-1)?.replace(/^@/, "") : null;
 
   return (
     <span className={`inline-flex min-w-0 items-center gap-1.5 ${className}`.trim()}>
-      {label !== null ? (
-        <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
-          {label}
-        </span>
-      ) : null}
-      <Link
-        href={publisherPath(handle)}
-        className="truncate transition-colors hover:text-accent"
-        title={isProject ? `Project ${handle}` : `User ${handle}`}
-      >
-        {handle}
-      </Link>
+      {isProject ? (
+        <Link
+          href={publisherPath(handle)}
+          className="inline-flex min-w-0 items-center gap-1.5 rounded-full border border-accent/60 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent transition-colors hover:border-accent"
+          title={`Project ${handle}`}
+        >
+          {projectName ? <span className="truncate normal-case tracking-normal">{projectName}</span> : null}
+        </Link>
+      ) : (
+        <Link
+          href={publisherPath(handle)}
+          className="truncate transition-colors hover:text-ink"
+          title={`User ${handle}`}
+        >
+          {handle}
+        </Link>
+      )}
     </span>
   );
 }

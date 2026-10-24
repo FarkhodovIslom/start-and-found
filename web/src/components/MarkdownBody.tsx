@@ -20,7 +20,7 @@ const components: Components = {
       href={href}
       target="_blank"
       rel="noopener noreferrer nofollow"
-      className="text-accent underline decoration-accent/40 underline-offset-2 break-words hover:decoration-accent"
+      className="break-words text-ink-2 underline decoration-ink-4/40 underline-offset-2 hover:text-ink hover:decoration-ink-3"
     >
       {children}
     </a>
@@ -35,12 +35,12 @@ const components: Components = {
   ol: ({ children }) => <ol className="mb-3 list-decimal space-y-1 pl-5">{children}</ol>,
   li: ({ children }) => <li className="leading-relaxed">{children}</li>,
   blockquote: ({ children }) => (
-    <blockquote className="my-3 border-l-2 border-accent/40 pl-3 text-ink-3">
+    <blockquote className="my-3 border-l-2 border-line-strong pl-3 text-ink-3">
       {children}
     </blockquote>
   ),
   code: ({ children }) => (
-    <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-accent">
+    <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-ink">
       {children}
     </code>
   ),

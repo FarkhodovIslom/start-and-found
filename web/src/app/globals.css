@@ -5,7 +5,7 @@
  *
  * Every color a screen may use is declared once here as a light/dark pair, so
  * the scheme is a single `color-scheme` switch instead of duplicated utility
- * classes. Lime is the brand: accents only, never body text and never large
+ * classes. Cyan is the brand: accents only, never body text and never large
  * fills, which is why `accent` (readable ink) is separate from `accent-solid`
  * (the button fill that carries `accent-ink`).
  */
@@ -28,10 +28,10 @@
   --color-ink-4: light-dark(#6b6b73, #808080);
 
   /* brand */
-  --color-accent: light-dark(#4d7c0f, #9fef00);
-  --color-accent-2: light-dark(#b6ff2e, #b6ff2e);
-  --color-accent-solid: light-dark(#9fef00, #9fef00);
-  --color-accent-ink: light-dark(#0d0d0d, #0d0d0d);
+  --color-accent: light-dark(#0e7490, #22d3ee);
+  --color-accent-2: light-dark(#0891b2, #67e8f9);
+  --color-accent-solid: light-dark(#0e7490, #22d3ee);
+  --color-accent-ink: light-dark(#ffffff, #0d0d0d);
 
   /* status */
   --color-danger: light-dark(#c81e1e, #ff6b6b);

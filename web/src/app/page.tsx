@@ -5,6 +5,7 @@ import { errorMessage } from "@/lib/api/error";
 import { apiFetch } from "@/lib/api/server";
 import type { Page, Post } from "@/lib/api/types";
 import { PAGE_SIZE, firstValue } from "@/lib/params";
+import { isSignedIn, readSession } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ interface FeedPageProps {
 export default async function FeedPage({ searchParams }: FeedPageProps) {
   const params = await searchParams;
   const cursor = firstValue(params.cursor);
+  const canWrite = isSignedIn(await readSession());
 
   let page: Page<Post> | null = null;
   let failure: string | null = null;
@@ -30,9 +32,11 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
     <div className="space-y-4">
       <div className="flex items-baseline justify-between gap-3">
         <h1 className="text-lg font-semibold text-ink">Feed</h1>
-        <Link href="/compose" className="text-sm text-accent hover:underline">
-          New post
-        </Link>
+        {canWrite ? (
+          <Link href="/compose" className="text-sm text-accent hover:underline">
+            New post
+          </Link>
+        ) : null}
       </div>
 
       {page === null ? (
@@ -45,14 +49,14 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
         <EmptyState
           title="Nothing here yet"
           description="Posts from founders and their projects show up here. Be the first to publish something."
-          action={
+          action={canWrite ? (
             <Link
               href="/compose"
               className="rounded-lg bg-accent-solid px-3 py-1.5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-2"
             >
               Write a post
             </Link>
-          }
+          ) : undefined}
         />
       ) : (
         <>

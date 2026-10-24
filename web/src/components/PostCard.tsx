@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element -- post media is served from the storage configured for the API. */
-
 import Link from "next/link";
 import Avatar from "./Avatar";
 import MarkdownBody from "./MarkdownBody";
+import MediaCarousel from "./MediaCarousel";
 import PublisherBadge from "./PublisherBadge";
-import type { Media, Post } from "@/lib/api/types";
+import type { Post } from "@/lib/api/types";
 import { relativeTime, replyLabel } from "@/lib/format";
 
 export interface PostCardProps {
@@ -12,37 +11,6 @@ export interface PostCardProps {
   /** Hide the thread link when the card is already rendered inside a thread. */
   showThreadLink?: boolean;
   className?: string;
-}
-
-function MediaGrid({ media }: { media: Media[] }) {
-  const columns = media.length === 1 ? "grid-cols-1" : "grid-cols-2";
-
-  return (
-    <div className={`mt-3 grid gap-2 ${columns}`}>
-      {media.map((item) => (
-        <div
-          key={item.id}
-          className="max-h-96 overflow-hidden rounded-lg border border-line bg-surface-2"
-        >
-          {item.kind === "video" ? (
-            <video
-              src={item.url}
-              controls
-              preload="metadata"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <img
-              src={item.url}
-              alt=""
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 /** One post of a feed or a thread. */
@@ -85,13 +53,13 @@ export default function PostCard({
             <MarkdownBody body={post.body} />
           </div>
 
-          {post.media.length > 0 ? <MediaGrid media={post.media} /> : null}
+          {post.media.length > 0 ? <MediaCarousel media={post.media} /> : null}
 
           {showThreadLink ? (
             <div className="mt-3 text-xs">
               <Link
                 href={`/p/${post.id}`}
-                className="text-ink-3 transition-colors hover:text-accent"
+                className="text-ink-3 transition-colors hover:text-ink"
               >
                 {replyLabel(post.reply_count)}
               </Link>

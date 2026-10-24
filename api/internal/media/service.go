@@ -31,10 +31,10 @@ type allowedType struct {
 
 // allowedTypes maps accepted content types to their kind and size cap.
 var allowedTypes = map[string]allowedType{
-	"image/png":  {kind: KindImage, maxSize: 10 << 20},
-	"image/jpeg": {kind: KindImage, maxSize: 10 << 20},
-	"image/webp": {kind: KindImage, maxSize: 10 << 20},
-	"image/gif":  {kind: KindGIF, maxSize: 15 << 20},
+	"image/png":  {kind: KindImage, maxSize: 25 << 20},
+	"image/jpeg": {kind: KindImage, maxSize: 25 << 20},
+	"image/webp": {kind: KindImage, maxSize: 25 << 20},
+	"image/gif":  {kind: KindGIF, maxSize: 25 << 20},
 	"video/mp4":  {kind: KindVideo, maxSize: 100 << 20},
 	"video/webm": {kind: KindVideo, maxSize: 100 << 20},
 }

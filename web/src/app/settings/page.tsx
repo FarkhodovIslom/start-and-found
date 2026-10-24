@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import EmptyState from "@/components/EmptyState";
+import LogoutButton from "@/components/LogoutButton";
 import SettingsForm from "@/components/SettingsForm";
 import ThemeToggle from "@/components/ThemeToggle";
 import { errorMessage } from "@/lib/api/error";
@@ -59,6 +60,14 @@ export default async function SettingsPage() {
       ) : (
         <SettingsForm account={account} />
       )}
+
+      <section className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5">
+        <div className="space-y-1">
+          <h2 className="text-sm font-semibold text-ink">Session</h2>
+          <p className="text-sm text-ink-3">Sign out of your account on this device.</p>
+        </div>
+        <LogoutButton />
+      </section>
     </div>
   );
 }

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start &amp; Found</title>
+<style>
+  /* ============================================================
+     DESIGN TOKENS — premium-whitespace-ui skill
+     ============================================================ */
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --gray-dark: #1d1d1f;
+    --gray-mid: #6e6e73;
+    --gray-muted: #86868b;
+    --gray-light: #d2d2d7;
+    --bg-light: #f5f5f7;
+
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+            'Helvetica Neue', sans-serif;
+
+    --text-display: clamp(56px, 8vw, 120px);
+    --text-title: clamp(36px, 5vw, 64px);
+    --text-body: 17px;
+    --text-caption: 14px;
+
+    --weight-thin: 300;
+    --weight-regular: 400;
+    --weight-bold: 700;
+
+    --tracking-display: -0.003em;
+
+    --section-y: clamp(80px, 12vw, 160px);
+    --content-max: 1080px;
+    --gutter: max(24px, 5vw);
+    --gap-hero: clamp(48px, 6vw, 80px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    line-height: 1.47;
+    letter-spacing: var(--tracking-body);
+    color: var(--gray-dark);
+    background: var(--white);
+  }
+
+  /* ============================================================
+     PATTERN 5 — Section Breathing: every section uses this rhythm
+     ============================================================ */
+  section {
+    padding: var(--section-y) var(--gutter);
+  }
+  .shell {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-hero);
+  }
+  .center { text-align: center; }
+
+  h1 {
+    margin: 0;
+    font-size: var(--text-display);
+    font-weight: var(--weight-thin);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-display);
+  }
+  h2 {
+    margin: 0;
+    font-size: var(--text-title);
+    font-weight: var(--weight-bold);
+    line-height: 1.08;
+    letter-spacing: var(--tracking-display);
+    color: var(--gray-dark);
+  }
+  p {
+    margin: 0;
+    max-width: 620px;
+    margin-inline: auto;
+    font-size: var(--text-body);
+    color: var(--gray-mid);
+  }
+  .caption {
+    font-size: var(--text-caption);
+    color: var(--gray-muted);
+  }
+
+  /* ============================================================
+     PATTERN 1 — Dual-Weight Headline
+     ============================================================ */
+  .dual .soft   { color: var(--gray-muted); font-weight: var(--weight-thin); }
+  .dual .strong { color: var(--gray-dark); font-weight: var(--weight-bold); }
+
+  /* PATTERN 3 — Dimmed Mass + Single Accent */
+  .dimmed { color: var(--gray-muted); }
+  .accent { color: var(--gray-dark); font-weight: var(--weight-bold); }
+
+  /* ============================================================
+     BUTTONS — solid black or ghost only. No gradients.
+     ============================================================ */
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 30px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font: inherit;
+    font-size: 17px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity .2s ease, background-color .2s ease;
+  }
+  .btn-solid  { background: var(--black); color: var(--white); }
+  .btn-solid:hover  { opacity: .84; }
+  .btn-ghost { border-color: var(--gray-dark); color: var(--gray-dark); background: transparent; }
+  .btn-ghost:hover { background: var(--bg-light); }
+
+  /* arrow link — the third allowed CTA form */
+  .arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-body);
+    color: var(--gray-mid);
+    text-decoration: none;
+  }
+  .arrow-link::after { content: "→"; }
+  .arrow-link:hover { color: var(--gray-dark); }
+
+  /* ============================================================
+     NAV — ghost links only
+     ============================================================ */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px var(--gutter);
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .wordmark {
+    font-size: 17px;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-display);
+    color: var(--gray-dark);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 34px; }
+  .nav-links a {
+    font-size: var(--text-caption);
+    color: var(--gray-mid);
+    text-decoration: none;
+  }
+  .nav-links a:hover { color: var(--gray-dark); }
+
+  /* ============================================================
+     PATTERN 4 — Gallery Card: one product, air on all sides
+     ============================================================ */
+  .gallery {
+    background: var(--black);
+    border-radius: 24px;
+    padding: clamp(48px, 7vw, 96px) clamp(28px, 5vw, 72px);
+  }
+
+  /* the product inside the dark card */
+  .product {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,.55));
+  }
+  .product-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-light); }
+  .product-bar .url {
+    font-size: 12px;
+    color: var(--gray-muted);
+  }
+  .product-body { padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 16px; }
+
+  .post { display: flex; gap: 12px; }
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--bg-light);
+    flex: 0 0 auto;
+  }
+  .post-main { flex: 1; min-width: 0; }
+  .post-head { display: flex; align-items: center; gap: 8px; }
+  .post-name { font-size: 14px; font-weight: var(--weight-bold); color: var(--gray-dark); }
+  .badge {
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--bg-light);
+    color: var(--gray-mid);
+  }
+  .post-time { font-size: 12px; color: var(--gray-muted); }
+  .post-text { font-size: 15px; line-height: 1.45; color: var(--gray-dark); margin-top: 4px; }
+  .post-text b { font-weight: var(--weight-bold); }
+  .rule { height: 1px; background: var(--gray-light); }
+
+  /* ============================================================
+     STATEMENT — dark band, PATTERN 2 gradient text
+     ============================================================ */
+  .statement { background: var(--black); }
+  .statement h2 {
+    background: linear-gradient(100deg, #888888 0%, #ffffff 62%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    max-width: 15ch;
+    margin-inline: auto;
+  }
+
+  /* three quiet pillars — one accent total, no card grid */
+  .pillars { display: flex; flex-direction: column; gap: 56px; }
+  .pillar { max-width: 560px; margin-inline: auto; text-align: center; }
+  .pillar h3 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-display);
+    color: var(--gray-dark);
+  }
+  .pillar p { font-size: var(--text-body); }
+
+  footer {
+    padding: 48px var(--gutter);
+    text-align: center;
+    border-top: 1px solid var(--gray-light);
+  }
+  footer p { font-size: var(--text-caption); color: var(--gray-muted); }
+
+  /* ============================================================
+     MOTION — scroll-reveal on hero and ONE statement only.
+     The .reveal base stays visible; only .js-enabled hides it, so a
+     failed observer can never leave the page blank.
+     ============================================================ */
+  .js-enabled .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+  .js-enabled .reveal.in { opacity: 1; transform: none; }
+
+  /* The hero is above the fold: it must never wait on an observer. */
+  .js-enabled .reveal-now { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js-enabled .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .nav-links { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="wordmark" href="#">Start&amp;Found</a>
+  <div class="nav-links">
+    <a href="#">Feed</a>
+    <a href="#">Projects</a>
+    <a href="#">Pricing</a>
+  </div>
+</nav>
+
+<!-- HERO — one focus: one headline, one CTA -->
+<section class="center" style="padding-top: clamp(90px, 14vw, 190px);">
+  <div class="shell stack center reveal reveal-now">
+    <h1 class="dual">
+      <span class="soft">Build in public,</span><br>
+      <span class="strong">find your people.</span>
+    </h1>
+    <p>
+      Start &amp; Found is where founders publish as themselves and as their
+      projects — so the work gets seen, and the right collaborators find you.
+    </p>
+    <div class="actions">
+      <a class="btn btn-solid" href="#">Create your account</a>
+      <a class="arrow-link" href="#">Browse the feed</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY CARD — one product, maximum air -->
+<section style="padding-top: 0;">
+  <div class="shell">
+    <div class="gallery reveal">
+      <div class="product">
+        <div class="product-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">startandfound.com</span>
+        </div>
+        <div class="product-body">
+
+          <div class="post">
+            <div class="avatar"></div>
+            <div class="post-main">
+              <div class="post-head">
+                <span class="post-name">Hanzo Dev</span>
+                <span class="badge">SorhyAI</span>
+                <span class="post-time">7h</span>
+              </div>
+              <div class="post-text">
+                Shipped the auth layer today. Sessions are <b>httpOnly cookies</b> again,
+                and the refresh rotation finally stops leaking tokens.
+              </div>
+            </div>
+          </div>
+
+          <div class="rule"></div>
+
+          <div class="post">
+            <div class="avatar"></div>
+            <div class="post-main">
+              <div class="post-head">
+                <span class="post-name">Hanzo Dev</span>
+                <span class="post-time">1d</span>
+              </div>
+              <div class="post-text">
+                The hardest part of building in public was not shipping.
+                It was <b>posting the ugly first version</b>.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT — PATTERN 2 gradient text on black -->
+<section class="statement center">
+  <div class="shell stack center reveal">
+    <h2>Empty space feels expensive.</h2>
+    <p style="color: var(--gray-mid);">
+      No feed noise. No engagement bait. Just the work, and the people
+      building alongside you.
+    </p>
+  </div>
+</section>
+
+<!-- THREE QUIET PILLARS — no card grid, one accent only -->
+<section class="center" style="background: var(--bg-light);">
+  <div class="shell stack center">
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Publish as yourself</h3>
+        <p class="dimmed">Your handle, your name, your updates. The feed stays chronological.</p>
+      </div>
+      <div class="pillar">
+        <h3>Publish as your project</h3>
+        <p class="dimmed">Every project becomes its own identity on the platform, with its own audience.</p>
+      </div>
+      <div class="pillar">
+        <h3>Stay in control</h3>
+        <p class="dimmed">API keys, scoped media uploads, and a profile that is only ever edited by you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Start &amp; Found — a place for founders and their projects.</p>
+</footer>
+
+<script>
+  // A missing or inert observer must never hide content: the class is only
+  // added to elements that are actually below the fold, and the fallback
+  // timer reveals anything already in view.
+  const targets = document.querySelectorAll('.reveal:not(.reveal-now)');
+  const revealNow = (el) => el.classList.add('in');
+
+  document.documentElement.classList.add('js-enabled');
+
+  if (typeof IntersectionObserver === 'function') {
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          revealNow(entry.target);
+          io.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    targets.forEach((t) => io.observe(t));
+  }
+
+  // Safety net.
+  window.setTimeout(() => {
+    targets.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) revealNow(el);
+    });
+  }, 1500);
+</script>
+</body>
+</html>
